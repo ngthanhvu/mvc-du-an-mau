@@ -27,7 +27,10 @@ include_once "./includes/header.php"
                 } else {
                     echo "<td>User</td>";
                 }
-                echo "<td><a href='/admin/users/delete?id=" . $user['id'] . "' class='btn btn-danger'>Delete</a></td>";
+                echo "<td>
+                <a href='/admin/users/delete?id=" . $user['id'] . "' class='btn btn-danger'>Delete</a>
+                <a href='/admin/update?id=" . $user['id'] . "' class='btn btn-warning'>Update</a>
+                </td>";
                 echo "</tr>";
             }
             ?>

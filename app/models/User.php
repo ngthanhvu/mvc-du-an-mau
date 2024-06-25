@@ -8,19 +8,24 @@ class User
         $this->db = db_connect();
     }
 
-    public function getAllUsers()
+    public function getUser()
     {
         $sql = "SELECT * FROM users";
         $result = $this->db->query($sql);
+        return $result;
+    }
 
-        $users = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $users[] = $row;
-            }
-        }
-
-        return $users;
+    public function getUserId($id)
+    {
+        $id = (int)$id;
+        $sql = "SELECT * FROM users WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+        return $user;
     }
 
     public function DeleteUser($id)
@@ -31,8 +36,6 @@ class User
 
     public function AddUser($username, $password, $full_name, $level)
     {
-        // $sql = "INSERT INTO users (username, password, full_name, level) VALUES ('$username', '$password', '$full_name', '$level')";
-        // $this->db->query($sql);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -43,4 +46,10 @@ class User
         }
     }
 
+    public function UpdateUser($id ,$username, $full_name, $level)
+    {
+        $id = $_POST['id'];
+        $sql = "UPDATE users SET username = '$username', full_name = '$full_name', level = '$level' WHERE id = $id";
+        $this->db->query($sql);
+    }
 }

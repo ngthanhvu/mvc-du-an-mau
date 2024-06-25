@@ -1,6 +1,6 @@
 <?php
 // HomeController.php
-
+// include __DIR__ . '/../../app/models/User.php';
 class HomeController
 {
 
@@ -19,8 +19,14 @@ class HomeController
         include __DIR__ . '/../../app/views/admin/index.php';
     }
 
-    public function adduser() {
+    public function adduser()
+    {
 
         include __DIR__ . '/../../app/views/admin/adduser.php';
+    }
+
+    public function updateUser()
+    {
+        include __DIR__ . '/../../app/views/admin/updateUser.php';
     }
 }
